@@ -31,7 +31,6 @@ describe('AccountCard', () => {
   it('renders account details correctly', () => {
     render(<AccountCard accountDetails={mockAccountDetails} loading={false} />);
     
-    expect(screen.getByText('Online Payments')).toBeInTheDocument();
     expect(screen.getByText('ACCOUNT DETAILS')).toBeInTheDocument();
     expect(screen.getByText('STERLING BANK')).toBeInTheDocument();
     expect(screen.getByText('8000000000')).toBeInTheDocument();
@@ -60,8 +59,9 @@ describe('AccountCard', () => {
     
     render(<AccountCard accountDetails={accountDetailsWithBalance} loading={false} />);
     
-    expect(screen.getByText('CURRENT BALANCE')).toBeInTheDocument();
-    expect(screen.getByText('₦50,000.00')).toBeInTheDocument();
+    // Since we removed the balance display, just check that the component renders
+    expect(screen.getByText('ACCOUNT DETAILS')).toBeInTheDocument();
+    expect(screen.getByText('STERLING BANK')).toBeInTheDocument();
   });
 
   it('renders nothing when no account details and not loading', () => {

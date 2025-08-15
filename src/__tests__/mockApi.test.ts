@@ -28,7 +28,7 @@ vi.mock('../utils/mockApi', async () => {
           }
         };
       },
-      async getTransactions(page = 1, limit = 8) {
+      async getTransactions(_page = 1, _limit = 8) {
         const mockTransactions = [
           {
             id: '1',
@@ -49,7 +49,7 @@ vi.mock('../utils/mockApi', async () => {
           }
         };
       },
-      async getFilteredTransactions(filters) {
+      async getFilteredTransactions(_filters: any) {
         return {
           status: 'success',
           data: []

@@ -1,7 +1,8 @@
 import '@testing-library/jest-dom';
+import { vi } from 'vitest';
 
 // Mock IntersectionObserver
-global.IntersectionObserver = class IntersectionObserver {
+(globalThis as any).IntersectionObserver = class IntersectionObserver {
   constructor() {}
   disconnect() {}
   observe() {}
@@ -9,7 +10,7 @@ global.IntersectionObserver = class IntersectionObserver {
 };
 
 // Mock ResizeObserver
-global.ResizeObserver = class ResizeObserver {
+(globalThis as any).ResizeObserver = class ResizeObserver {
   constructor() {}
   disconnect() {}
   observe() {}
@@ -24,5 +25,5 @@ Object.assign(navigator, {
 });
 
 // Mock window.URL.createObjectURL
-global.URL.createObjectURL = vi.fn(() => 'mocked-url');
-global.URL.revokeObjectURL = vi.fn(); 
+(globalThis as any).URL.createObjectURL = vi.fn(() => 'mocked-url');
+(globalThis as any).URL.revokeObjectURL = vi.fn(); 

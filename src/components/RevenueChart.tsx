@@ -21,7 +21,6 @@ export const RevenueChart: React.FC<RevenueChartProps> = ({
   data,
   loading,
   currentRevenue,
-  previousRevenue,
   percentage,
   selectedTimeRange,
   onTimeRangeChange,

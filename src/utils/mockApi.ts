@@ -32,11 +32,20 @@ const mockRevenueDataSets = {
     { month: 'Oct', value: 62000 },
     { month: 'Nov', value: 58000 },
     { month: 'Dec', value: 65000 },
+  ],
+  'Weekly': [
+    { month: 'Mon', value: 2800 },
+    { month: 'Tue', value: 3200 },
+    { month: 'Wed', value: 2950 },
+    { month: 'Thu', value: 3400 },
+    { month: 'Fri', value: 4100 },
+    { month: 'Sat', value: 3800 },
+    { month: 'Sun', value: 3600 },
   ]
 };
 
 
-const mockRevenueData: RevenueData[] = mockRevenueDataSets['Last 7 days'];
+
 
 const mockTransactions: Transaction[] = [
   {
@@ -226,15 +235,16 @@ const delay = (ms: number = 1000) => new Promise(resolve => setTimeout(resolve, 
 
 
 export const mockApi = {
-  async getDashboardStats(timeRange: 'Today' | 'Last 7 days' | 'Last 30 days' = 'Last 7 days'): Promise<ApiResponse<DashboardStats>> {
+  async getDashboardStats(timeRange: 'Today' | 'Last 7 days' | 'Last 30 days' | 'Weekly' = 'Last 7 days'): Promise<ApiResponse<DashboardStats>> {
     await delay(800);
     
-    const data = mockRevenueDataSets[timeRange];
-    const currentRevenue = data.reduce((sum, item) => sum + item.value, 0);
+    const data = mockRevenueDataSets[timeRange] || mockRevenueDataSets['Last 7 days'];
+    const currentRevenue = data.reduce((sum: number, item: RevenueData) => sum + item.value, 0);
     
 
     const previousRevenue = timeRange === 'Today' ? 1800 : 
-                           timeRange === 'Last 7 days' ? 20500 : 450000;
+                           timeRange === 'Last 7 days' ? 20500 : 
+                           timeRange === 'Weekly' ? 20500 : 450000;
     
     const percentage = Math.round(((currentRevenue - previousRevenue) / previousRevenue) * 100);
     
